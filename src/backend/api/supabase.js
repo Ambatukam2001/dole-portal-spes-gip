@@ -1,33 +1,22 @@
 /**
- * DOLE Iligan Portal — Supabase Client Initialization
- * Centralized Supabase client — import this in all API modules.
+ * DOLE Iligan Portal — Firebase Client Initialization (Supabase-Compatible Adapter)
+ * Centralized database client — import this in all API modules.
  *
- * Uses VITE_ prefixed env vars (loaded from src/backend/config/.env via vite.config.js envDir)
+ * Uses Firebase datastore & multi-schema adapter via src/backend/api/firebase.js
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createFirebaseClient } from './firebase.js';
 
-const SUPABASE_URL      = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const FIREBASE_PROJECT_ID = (import.meta.env.VITE_FIREBASE_PROJECT_ID || 'dole-portal-firebase').trim();
+const FIREBASE_API_KEY    = (import.meta.env.VITE_FIREBASE_API_KEY || 'firebase-local-key').trim();
 
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.error(
-        '[Supabase] ❌  Missing environment variables. ' +
-        'Ensure src/backend/config/.env exists with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.'
-    );
-}
-
-/**
- * Shared Supabase client instance for all frontend API calls.
- * Uses the anon public key — Row Level Security (RLS) applies.
- */
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+export const supabase = createFirebaseClient(FIREBASE_PROJECT_ID, FIREBASE_API_KEY, {
     auth: {
         persistSession: true,
         autoRefreshToken: true,
     }
 });
 
-if (window.DEBUG) {
-    window.DEBUG.success('SUPABASE', `Client initialized → ${SUPABASE_URL}`);
+if (typeof window !== 'undefined' && window.DEBUG) {
+    window.DEBUG.success('FIREBASE', `Client initialized → project: ${FIREBASE_PROJECT_ID}`);
 }

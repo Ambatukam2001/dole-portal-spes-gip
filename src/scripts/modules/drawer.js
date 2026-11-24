@@ -445,7 +445,7 @@ const initSystemsManager = () => {
             description: system.description || 'No description provided.',
             systemUrl: systemUrl === '#' ? '' : systemUrl,
             color: system.color || '#3b82f6',
-            imageUrl: system.image_url || '/src/assets/images/slider/default.png',
+            imageUrl: system.image_url || '/src/assets/images/slider/sl1.webp',
             createdAt: system.created_at || null,
             archivedAt: system.archived_at || null,
             isActive: typeof system.is_active === 'boolean' ? system.is_active : true

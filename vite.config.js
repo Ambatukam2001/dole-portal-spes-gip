@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath, pathToFileURL, URL } from 'node:url'
@@ -111,6 +111,17 @@ function localApiMiddleware() {
   return {
     name: 'local-api-middleware',
     configureServer(server) {
+      const configDir = path.resolve(__dirname, 'src/backend/config');
+      const loadedEnv = {
+        ...loadEnv('production', __dirname, ''),
+        ...loadEnv('development', __dirname, ''),
+        ...loadEnv('production', configDir, ''),
+        ...loadEnv('development', configDir, '')
+      };
+      for (const [name, value] of Object.entries(loadedEnv)) {
+        if (value && !(name in process.env)) process.env[name] = value;
+      }
+
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url, 'http://localhost:5173');
         if (!url.pathname.startsWith('/api/')) return next();
@@ -253,6 +264,11 @@ export default defineConfig({
   envDir: path.resolve(__dirname, 'src/backend/config'),
   // public/ is copied as-is to dist/ root by Vite automatically (favicon, icons.svg, etc.)
   publicDir: 'public',
+  server: {
+    watch: {
+      ignored: ['**/.firebase-data/**', '**/firebase-db.json']
+    }
+  },
   preview: {
     port: 4180,
     strictPort: true

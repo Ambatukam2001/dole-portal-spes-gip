@@ -53,3 +53,9 @@ caveman_output.txt
 .agents.zip
 supabase/.temp/
 supabase/migrations/
+.firebase-data/
+src/backend/config/firebase-db.json
+dist-cf/
+DOLE-Portal-Accounts-Credentials.pdf
+docs/DOLE-Portal-Accounts-Credentials.pdf
+scripts/generate-credentials-pdf.js

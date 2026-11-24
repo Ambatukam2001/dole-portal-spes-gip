@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createFirebaseClient as createClient } from './firebase.js';
 
 /* START EXTERNAL SYSTEM USER SEARCH API */
 const EXTERNAL_SYSTEMS = {

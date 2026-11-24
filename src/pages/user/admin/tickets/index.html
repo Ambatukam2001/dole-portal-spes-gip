@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <link class="cursor-pointer" rel="icon" type="image/x-icon" href="/dole-logo.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manage Tickets - DOLE Portal</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  <title>Manage Tickets - DOLE Portal</title>
     <script>
         if (localStorage.getItem('color-theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -109,7 +110,7 @@
                     <div class="flex w-full flex-col items-center justify-center text-center md:w-auto md:flex-1">
                         <span id="chat-header-ticket-id" class="text-lg font-bold text-gray-900 dark:text-white leading-none">#TK-2401</span>
                         <div class="flex max-w-full items-center justify-center gap-2 truncate">
-                            <span class="text-gray-400 dark:text-gray-600 select-none font-bold">•</span>
+                            <span class="text-gray-400 dark:text-gray-600 select-none font-bold">â€¢</span>
                             <p id="chat-header-ticket-subject" class="truncate text-sm text-gray-500 dark:text-gray-400 font-medium max-w-[min(70vw,40rem)]">Loading Ticket Title...</p>
                         </div>
                     </div>
@@ -392,9 +393,9 @@
                     <!-- Three Dots Waving Bounce Typing Indicator -->
                     <div id="chat-typing-indicator" class="hidden items-center gap-2 px-5 py-2 bg-gray-50/80 dark:bg-gray-800/80 border-t border-gray-100 dark:border-gray-800 select-none transition-all duration-200">
                         <span class="inline-flex items-center gap-0.5 text-base leading-none font-black text-blue-600 dark:text-blue-400">
-                            <span class="inline-block animate-bounce" style="animation-delay: 0ms; animation-duration: 0.8s;">•</span>
-                            <span class="inline-block animate-bounce" style="animation-delay: 160ms; animation-duration: 0.8s;">•</span>
-                            <span class="inline-block animate-bounce" style="animation-delay: 320ms; animation-duration: 0.8s;">•</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 0ms; animation-duration: 0.8s;">â€¢</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 160ms; animation-duration: 0.8s;">â€¢</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 320ms; animation-duration: 0.8s;">â€¢</span>
                         </span>
                         <span id="chat-typing-text" class="font-semibold text-xs truncate text-gray-700 dark:text-gray-300">Staff is typing...</span>
                     </div>
@@ -516,10 +517,10 @@
                                 <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider block select-none">Tags</label>
                                 <div id="details-tags-container" class="flex flex-wrap gap-1.5 p-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg min-h-12">
                                     <span class="inline-flex items-center gap-1 text-[10px] font-bold bg-gray-900 text-white dark:bg-gray-950 dark:text-white px-2 py-0.5 rounded-md">
-                                        Question <button class="cursor-pointer text-gray-400 hover:text-white font-bold select-none">×</button>
+                                        Question <button class="cursor-pointer text-gray-400 hover:text-white font-bold select-none">Ã—</button>
                                     </span>
                                     <span class="inline-flex items-center gap-1 text-[10px] font-bold bg-gray-900 text-white dark:bg-gray-950 dark:text-white px-2 py-0.5 rounded-md">
-                                        Problem <button class="cursor-pointer text-gray-400 hover:text-white font-bold select-none">×</button>
+                                        Problem <button class="cursor-pointer text-gray-400 hover:text-white font-bold select-none">Ã—</button>
                                     </span>
                                 </div>
                             </div>

@@ -29,12 +29,35 @@ export const getSsoSystem = (value) => {
 };
 /* END GET SSO SYSTEM */
 
+/* START LOCAL CALLBACK REACHABILITY CHECK - Falls back to database system_url when a localhost override is not running */
+const isLocalCallbackReachable = async (callbackUrl) => {
+    try {
+        const parsed = new URL(callbackUrl);
+        if (!['localhost', '127.0.0.1'].includes(parsed.hostname.toLowerCase())) {
+            return true;
+        }
+        await fetch(parsed.origin, {
+            method: 'HEAD',
+            signal: AbortSignal.timeout(800)
+        });
+        return true;
+    } catch {
+        return false;
+    }
+};
+/* END LOCAL CALLBACK REACHABILITY CHECK */
+
 /* START DYNAMIC SSO CALLBACK RESOLUTION - Uses the active Portal systems.system_url CRUD value in production */
 export const resolveSsoCallback = async (admin, system) => {
     if (!system) throw new Error('The requested external system is not supported.');
 
-    // Local development may override the shared production database URL without changing it.
-    if (system.callbackOverride) return callbackFromUrl(system.callbackOverride);
+    // Local development may override the shared production database URL only if that local server is reachable.
+    if (system.callbackOverride) {
+        const overrideUrl = callbackFromUrl(system.callbackOverride);
+        if (await isLocalCallbackReachable(overrideUrl)) {
+            return overrideUrl;
+        }
+    }
 
     const { data, error } = await admin
         .from('systems')

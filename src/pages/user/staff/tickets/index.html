@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <link class="cursor-pointer" rel="icon" type="image/x-icon" href="/dole-logo.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Tickets - DOLE Portal</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  <title>My Tickets - DOLE Portal</title>
     <script>
         if (localStorage.getItem('color-theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -72,7 +73,7 @@
                     <div class="min-w-0">
                         <div class="flex flex-wrap items-center gap-2">
                             <h1 id="chat-header-ticket-id" class="text-2xl font-black text-gray-900 dark:text-white leading-tight">Tickets</h1>
-                            <span id="chat-header-separator" class="text-gray-400 dark:text-gray-600 select-none font-bold text-xl hidden">•</span>
+                            <span id="chat-header-separator" class="text-gray-400 dark:text-gray-600 select-none font-bold text-xl hidden">â€¢</span>
                             <div class="relative inline-block pb-1">
                                 <span id="chat-header-ticket-subject" class="text-sm font-medium text-gray-500 dark:text-gray-400">View and manage your tickets here.</span>
                                 <div id="chat-header-subject-underline" class="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-emerald-500 to-lime-400 rounded-full transition-all duration-300"></div>
@@ -324,9 +325,9 @@
                     <!-- Three Dots Waving Bounce Typing Indicator -->
                     <div id="chat-typing-indicator" class="hidden items-center gap-2 px-6 py-2 bg-gray-50/80 dark:bg-gray-800/80 border-t border-gray-100 dark:border-gray-800 select-none transition-all duration-200">
                         <span class="inline-flex items-center gap-0.5 text-base leading-none font-black text-blue-600 dark:text-blue-400">
-                            <span class="inline-block animate-bounce" style="animation-delay: 0ms; animation-duration: 0.8s;">•</span>
-                            <span class="inline-block animate-bounce" style="animation-delay: 160ms; animation-duration: 0.8s;">•</span>
-                            <span class="inline-block animate-bounce" style="animation-delay: 320ms; animation-duration: 0.8s;">•</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 0ms; animation-duration: 0.8s;">â€¢</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 160ms; animation-duration: 0.8s;">â€¢</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 320ms; animation-duration: 0.8s;">â€¢</span>
                         </span>
                         <span id="chat-typing-text" class="font-semibold text-xs truncate text-gray-700 dark:text-gray-300">Staff is typing...</span>
                     </div>

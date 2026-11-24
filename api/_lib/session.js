@@ -172,8 +172,10 @@ export const getPortalSession = async (req, admin) => {
     if (!user || user.archived_at || String(user.approval_status || '').toUpperCase() !== 'APPROVED') return null;
 
     // START SESSION ACTIVITY TOUCH
-    // Every authenticated request keeps the server-side inactivity window current.
-    await admin.from('portal_sessions').update({ last_activity_at: new Date(now).toISOString() }).eq('id', data.id);
+    // Throttle disk writes to once every 60 seconds while keeping the server-side inactivity window current.
+    if (!Number.isFinite(lastActivityAt) || (now - lastActivityAt > 60 * 1000)) {
+        await admin.from('portal_sessions').update({ last_activity_at: new Date(now).toISOString() }).eq('id', data.id);
+    }
     // END SESSION ACTIVITY TOUCH
     return { sessionId: data.id, user: { ...safeUser(user), is_gip: isGip, gip_id: isGip ? user.id : null } };
 };

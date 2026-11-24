@@ -1,4 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
+import { createFirebaseAdminClient } from './firebase-admin.js';
+
+const createClient = (_url, _key, options = {}) => createFirebaseAdminClient(options?.db?.schema || 'public');
 
 const safeString = (value) => String(value || '').trim();
 

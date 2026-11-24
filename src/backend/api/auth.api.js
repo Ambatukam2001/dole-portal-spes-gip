@@ -3,7 +3,7 @@
  * Handles login/logout operations against the users table.
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createFirebaseClient as createClient } from './firebase.js';
 import { supabase } from './supabase.js';
 import { createNotification } from './notifications.api.js';
 

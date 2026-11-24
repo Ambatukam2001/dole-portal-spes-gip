@@ -18,7 +18,16 @@ export default async function handler(req, res) {
         const system = getSsoSystem(body.system_key);
         if (!system) return sendJson(res, 400, { error: 'This system is not supported for SSO.' });
         if (!system.clientSecret) return sendJson(res, 503, { error: 'This system SSO verifier is not configured yet.' });
-        const callbackUrl = await resolveSsoCallback(admin, system);
+        let callbackUrl = await resolveSsoCallback(admin, system);
+
+        // Route SPES launches through the local Firebase SSO Bridge so SPES authenticates against Firebase spes.staffs without 401 Account Not Found
+        if (system.key === 'SPES') {
+            const reqHost = String(req.headers['x-forwarded-host'] || req.headers.host || 'localhost:5173').trim();
+            const reqProto = reqHost.includes('localhost') || reqHost.includes('127.0.0.1')
+                ? 'http'
+                : String(req.headers['x-forwarded-proto'] || 'https').trim();
+            callbackUrl = `${reqProto}://${reqHost}/api/sso/spes-bridge`;
+        }
 
         let link = null;
         if (session.user.is_gip) {

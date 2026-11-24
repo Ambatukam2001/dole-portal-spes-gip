@@ -24,4 +24,4 @@ A successful response identifies the target-local account to sign in as. The tar
 
 ## Local testing
 
-`npm run dev` starts Vercel Dev and serves both the Vite application and `/api/*` Vercel routes locally. `npm run dev:vite` is frontend-only and will return 404 for `/api/*`. Set the same server-only values in the root `.env.local` file before starting Vercel Dev, or deploy a Vercel Preview and test there.
+`npm run dev` starts the local Node + Vite server (`scripts/local-dev-server.js`) and serves both the Vite application and `/api/*` routes at `http://localhost:5173`. `npm run dev:vite` starts Vite directly (with local `/api/*` middleware), and `npm run dev:vercel` starts Vercel Dev. Copy `src/backend/config/.env.example` to `src/backend/config/.env` (or root `.env.local`) and fill in your Supabase, SSO, CREAO, and SMSAPI keys before starting the server.

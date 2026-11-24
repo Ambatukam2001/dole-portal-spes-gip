@@ -88,7 +88,7 @@ export default async function handler(req, res) {
         if (!fullName || fullName.length > 160) return sendJson(res, 400, { error: 'Please provide a valid full name.' });
         if (!username || username.length > 80) return sendJson(res, 400, { error: 'Please provide a valid username.' });
         if (!email || !isValidEmail(email) || email.length > 180) return sendJson(res, 400, { error: 'Please provide a valid email address.' });
-        if (avatar_url && avatar_url.length > 2048) return sendJson(res, 400, { error: 'The avatar URL is too long.' });
+        if (avatar_url && avatar_url.length > 5 * 1024 * 1024) return sendJson(res, 400, { error: 'The avatar URL or data URI is too large.' });
 
         const newPassword = String(body.new_password || '');
         const newPasswordConfirm = String(body.new_password_confirm || '');

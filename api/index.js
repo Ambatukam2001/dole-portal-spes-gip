@@ -14,6 +14,8 @@ import handleExternalAccountLinks from './_handlers/external-account-links.js';
 import handleExternalSystemDirectory from './_handlers/external-system-directory.js';
 import handleSsoAuthorize from './_handlers/sso-authorize.js';
 import handleSsoConsume from './_handlers/sso-consume.js';
+import handleSpesBridge from './_handlers/spes-bridge.js';
+import handleFirebaseDb from './_handlers/firebase-db.js';
 import handleChatbot from './_handlers/chatbot.js';
 import handleSmsSend from './_handlers/sms-send.js';
 import { sendJson } from './_lib/http.js';
@@ -30,6 +32,8 @@ const routes = {
     '/api/external-system-directory': handleExternalSystemDirectory,
     '/api/sso/authorize': handleSsoAuthorize,
     '/api/sso/consume': handleSsoConsume,
+    '/api/sso/spes-bridge': handleSpesBridge,
+    '/api/firebase': handleFirebaseDb,
     '/api/chatbot': handleChatbot,
     '/api/chatbot/chatbot.api': handleChatbot,
     '/api/sms': handleSmsSend,
@@ -80,6 +84,8 @@ const handlerPaths = {
     '/api/external-system-directory': './_handlers/external-system-directory.js',
     '/api/sso/authorize': './_handlers/sso-authorize.js',
     '/api/sso/consume': './_handlers/sso-consume.js',
+    '/api/sso/spes-bridge': './_handlers/spes-bridge.js',
+    '/api/firebase': './_handlers/firebase-db.js',
     '/api/chatbot': './_handlers/chatbot.js',
     '/api/chatbot/chatbot.api': './_handlers/chatbot.js',
     '/api/sms': './_handlers/sms-send.js',
@@ -89,15 +95,34 @@ const handlerPaths = {
 /* START MAIN DISPATCHER - Resolves and executes the matched API route handler */
 export default async function handler(req, res) {
     const pathname = resolvePathname(req);
+
+    // Route all /api/firebase/rest/v1/*, /api/firebase/api/v1/*, and SPES dedicated endpoints to the Firebase handler
+    if (pathname.startsWith('/api/firebase/') || ['/api/batch', '/api/permissions', '/api/offices', '/api/session'].includes(pathname)) {
+        let fbHandler = handleFirebaseDb;
+        if (process.env.NODE_ENV === 'development') {
+            try {
+                const moduleUrl = new URL('./_handlers/firebase-db.js', import.meta.url).href;
+                const freshModule = await import(`${moduleUrl}?ts=${Date.now()}`);
+                fbHandler = freshModule.default || fbHandler;
+            } catch {}
+        }
+        return await fbHandler(req, res);
+    }
+    if (pathname === '/api/beacon') {
+        return sendJson(res, 200, { success: true });
+    }
+
     const handlerRelativePath = handlerPaths[pathname];
 
     if (handlerRelativePath) {
         try {
             let routeHandler = routes[pathname];
-            if (process.env.NODE_ENV !== 'production') {
-                const moduleUrl = new URL(handlerRelativePath, import.meta.url).href;
-                const freshModule = await import(`${moduleUrl}?ts=${Date.now()}`);
-                routeHandler = freshModule.default || routeHandler;
+            if (process.env.NODE_ENV === 'development') {
+                try {
+                    const moduleUrl = new URL(handlerRelativePath, import.meta.url).href;
+                    const freshModule = await import(`${moduleUrl}?ts=${Date.now()}`);
+                    routeHandler = freshModule.default || routeHandler;
+                } catch {}
             }
             return await routeHandler(req, res);
         } catch (error) {

@@ -1,4 +1,5 @@
 /* START SERVER SESSION PAGE GUARD */
+import '../style.css';
 try { localStorage.removeItem('dole_session'); } catch {}
 const userRouteMatch = window.location.pathname.match(/\/src\/pages\/user\/(admin|staff)\//);
 const isToolsRoute = /\/src\/pages\/tools\//.test(window.location.pathname);

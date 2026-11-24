@@ -1,0 +1,10 @@
+name = "dole-portal"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+FIREBASE_PROJECT_ID = "dole-portal-region10"
+VITE_FIREBASE_PROJECT_ID = "dole-portal-region10"
+FIREBASE_DATABASE_URL = "https://dole-portal-region10-default-rtdb.asia-southeast1.firebasedatabase.app"
+VITE_FIREBASE_DATABASE_URL = "https://dole-portal-region10-default-rtdb.asia-southeast1.firebasedatabase.app"
