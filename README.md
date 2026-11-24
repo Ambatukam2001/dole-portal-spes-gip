@@ -12,6 +12,14 @@
 
 ---
 
+## DOLE Portal — SPES & GIP Unified System (Next-Gen Takeover)
+
+Originally architected and built by Mark Jordan C. Ugtong using Vercel and Supabase, this system has now been handed over and taken to its next chapter.
+
+As the current developer taking over stewardship of the platform, I migrated and modernized the entire infrastructure to Cloudflare (Pages & Workers) for edge hosting/APIs and Firebase Cloud Realtime Database for live cloud persistence — ensuring faster performance, seamless scalability, and continued evolution of DOLE Portal, SPES, and GIP operations.
+
+--
+
 ## What's Inside
 
 A unified web portal and operations platform integrating:
