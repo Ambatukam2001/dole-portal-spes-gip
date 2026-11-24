@@ -8,7 +8,7 @@
 ## Handover & Credits
 
 - **Previous Lead Developer:** **Mark Jordan C. Ugtong** — Original architect and builder of the DOLE Portal ecosystem.
-- **Current Maintainer (System Takeover):** **Ambatukam2001** — Taking over stewardship, cloud migration, performance optimization, and ongoing feature development for DOLE Portal, SPES, and GIP.
+- **Current Maintainer (System Takeover):** **Adel Yassin G. Gumama** — Taking over stewardship, cloud migration, performance optimization, and ongoing feature development for DOLE Portal, SPES, and GIP.
 
 ---
 
